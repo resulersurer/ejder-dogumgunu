@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import prisma from '@/lib/prisma';
 import { formatDate } from '@/lib/date';
 import { CheckCircle2, XCircle } from 'lucide-react';

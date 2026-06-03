@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import prisma from '@/lib/prisma';
 import { getNowInTurkey, isBirthdayToday } from '@/lib/date';
 import { Cake, Users, Send } from 'lucide-react';

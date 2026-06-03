@@ -5,6 +5,8 @@ import { sendEmail } from '@/lib/email';
 import { renderTemplate } from '@/lib/template';
 import { toZonedTime } from 'date-fns-tz';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
   try {
     const authHeader = request.headers.get('authorization');
