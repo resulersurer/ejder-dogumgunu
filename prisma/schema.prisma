@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Employee {
+  id         String   @id @default(cuid())
+  firstName  String
+  lastName   String
+  email      String   @unique
+  birthDate  DateTime
+  department String?
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  emailLogs  BirthdayEmailLog[]
+}
+
+model BirthdayEmailLog {
+  id         String   @id @default(cuid())
+  employeeId String
+  year       Int
+  sentAt     DateTime @default(now())
+  status     String   // "SENT", "FAILED"
+  error      String?
+  employee   Employee @relation(fields: [employeeId], references: [id])
+
+  @@unique([employeeId, year])
+}
+
+model EmailSettings {
+  id            String   @id @default(cuid())
+  fromName      String
+  fromEmail     String
+  subject       String
+  htmlTemplate  String   @db.Text
+  isCronEnabled Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
