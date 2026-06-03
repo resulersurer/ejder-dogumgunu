@@ -27,9 +27,8 @@ export async function sendEmail({
     throw new Error('SMTP credentials are not defined in environment variables');
   }
 
-  // Yandex SMTP requires the 'from' email to exactly match the authenticated user.
-  // We can format it as "Name <email>"
-  const from = `${fromName} <${process.env.SMTP_USER}>`;
+  // We format the sender as "Name <email>"
+  const from = `${fromName} <${fromEmail}>`;
 
   const info = await transporter.sendMail({
     from,
