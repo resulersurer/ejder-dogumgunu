@@ -1,7 +1,14 @@
-import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
 
-// Only initialize if API key exists, otherwise let it fail gracefully when called
-const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
+const transporter = nodemailer.createTransport({
+  host: 'smtp.yandex.com.tr',
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASSWORD,
+  },
+});
 
 export async function sendEmail({
   to,
@@ -16,22 +23,20 @@ export async function sendEmail({
   fromName: string;
   fromEmail: string;
 }) {
-  if (!resend) {
-    throw new Error('RESEND_API_KEY is not defined in environment variables');
+  if (!process.env.SMTP_USER || !process.env.SMTP_PASSWORD) {
+    throw new Error('SMTP credentials are not defined in environment variables');
   }
 
-  const from = `${fromName} <${fromEmail}>`;
+  // Yandex SMTP requires the 'from' email to exactly match the authenticated user.
+  // We can format it as "Name <email>"
+  const from = `${fromName} <${process.env.SMTP_USER}>`;
 
-  const { data, error } = await resend.emails.send({
+  const info = await transporter.sendMail({
     from,
-    to: [to],
+    to,
     subject,
     html,
   });
 
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  return data;
+  return info;
 }
