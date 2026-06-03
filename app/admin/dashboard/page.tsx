@@ -14,7 +14,7 @@ export default async function DashboardPage() {
     prisma.employee.findMany({ where: { isActive: true } }),
   ]);
 
-  const todayBirthdays = allEmployees.filter(emp => isBirthdayToday(emp.birthDate));
+  const todayBirthdays = allEmployees.filter((emp: any) => isBirthdayToday(emp.birthDate));
 
   return (
     <div className="p-8">
