@@ -105,7 +105,7 @@ export default async function EmployeesPage(props: {
                   </td>
                 </tr>
               ) : (
-                employees.map((employee) => (
+                employees.map((employee: any) => (
                   <tr key={employee.id} className="hover:bg-gray-50 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">

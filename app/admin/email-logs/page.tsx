@@ -34,7 +34,7 @@ export default async function EmailLogsPage() {
                   </td>
                 </tr>
               ) : (
-                logs.map((log) => (
+                logs.map((log: any) => (
                   <tr key={log.id} className="hover:bg-gray-50 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       {new Date(log.sentAt).toLocaleString('tr-TR')}
