@@ -61,7 +61,7 @@ export default async function DashboardPage() {
             {todayBirthdays.length === 0 ? (
               <div className="p-6 text-center text-gray-500">Bugün doğum günü olan personel bulunmuyor.</div>
             ) : (
-              todayBirthdays.map(emp => (
+              todayBirthdays.map((emp: any) => (
                 <div key={emp.id} className="p-6 flex items-center justify-between">
                   <div>
                     <p className="font-medium text-gray-900">{emp.firstName} {emp.lastName}</p>
@@ -85,7 +85,7 @@ export default async function DashboardPage() {
             {recentLogs.length === 0 ? (
               <div className="p-6 text-center text-gray-500">Henüz mail gönderilmemiş.</div>
             ) : (
-              recentLogs.map(log => (
+              recentLogs.map((log: any) => (
                 <div key={log.id} className="p-6 flex items-center justify-between">
                   <div>
                     <p className="font-medium text-gray-900">{log.employee.firstName} {log.employee.lastName}</p>
